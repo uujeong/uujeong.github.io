@@ -52,7 +52,7 @@ google_site_verification: google-site-verification=PtYLG-MWKVRw7qjp5now7kUFLNa6a
 # The end of `jekyll-seo-tag` settings
 
 google_analytics:
-  id: # fill in your Google Analytics ID
+  id: "UA-302160450-1" # fill in your Google Analytics ID
 
 # Prefer color scheme setting.
 #
@@ -93,6 +93,7 @@ comments:
   utterances:
     repo: uujeong/uueong.github.io
     issue_term: pathname # < url | pathname | title | ...>
+    theme: "github-light"
   # Giscus options › https://giscus.app
   giscus:
     repo: # <gh-username>/<repo>
