@@ -730,9 +730,14 @@ $btn-mb: 0.5rem;
   .profile-wrapper {
     @include mt-mb(2.5rem);
     @extend %clickable-transition;
-
-    padding-left: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+    padding-left: 1.25rem;
     padding-right: 1.25rem;
+    padding-bottom: 1rem;
     width: 100%;
   }
 
@@ -742,14 +747,17 @@ $btn-mb: 0.5rem;
     font-size: 1.75rem;
     line-height: 1.2;
     letter-spacing: 0.25px;
-    margin-top: 1.25rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
+    text-align: center;
 
     a {
       @extend %clickable-transition;
       @extend %sidebar-link-hover;
 
       color: var(--site-title-color);
+      text-align: center;
+      display: block;
     }
   }
 
@@ -762,6 +770,7 @@ $btn-mb: 0.5rem;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-align: center;
   }
 
   ul {
