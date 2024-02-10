@@ -15,7 +15,7 @@ timezone: Asia/Seoul
 # ↓ --------------------------
 
 # Google SEO
-title: 데이터 속 깊은 이야기 # the main title
+title: 데이터 이야기 # the main title
 
 tagline: 데이터 관련 다양한 주제에 대해 깊이 있는 분석과 리뷰를 제공합니다. # it will display as the sub-title
 
@@ -46,7 +46,7 @@ social:
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
 
-google_site_verification: # fill in to your verification string
+google_site_verification: google-site-verification=PtYLG-MWKVRw7qjp5now7kUFLNa6ailqlhCKOsEacO8 # fill in to your verification string
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
