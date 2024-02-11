@@ -2,15 +2,11 @@
 layout: compress
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 
-{% include origin-type.html %}
-
-{% include lang.html %}
-
-{% if site.theme_mode %}
-  {% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %}
-{% endif %}
+{% include origin-type.html %} {% include lang.html %} {% if site.theme_mode %}
+{% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %} {%
+endif %}
 
 <!-- `site.alt_lang` can specify a language different from the UI -->
 <html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
@@ -24,37 +20,45 @@ layout: compress
         {% include topbar.html lang=lang %}
 
         <div class="row flex-grow-1">
-          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
-            {% if layout.refactor or layout.layout == 'default' %}
-              {% include refactor-content.html content=content lang=lang %}
-            {% else %}
-              {{ content }}
-            {% endif %}
-          </main>
+          <!-- 상태 진행 바 표시 시작 -->
+          <div class="progress-container">
+            <div class="progress-bar" id="indicator"></div>
+          </div>
+          <!-- 상태 진행 바 표시 코드 끝 -->
+          <div>
+            <main
+              aria-label="Main Content"
+              class="col-12 col-lg-11 col-xl-9 px-md-4"
+            >
+              {% if layout.refactor or layout.layout == 'default' %} {% include
+              refactor-content.html content=content lang=lang %} {% else %} {{
+              content }} {% endif %}
+            </main>
+          </div>
 
           <!-- panel -->
-          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
+          <aside
+            aria-label="Panel"
+            id="panel-wrapper"
+            class="col-xl-3 ps-2 mb-5 text-muted"
+          >
             <div class="access">
-              {% include_cached update-list.html lang=lang %}
-              {% include_cached trending-tags.html lang=lang %}
+              {% include_cached update-list.html lang=lang %} {% include_cached
+              trending-tags.html lang=lang %}
             </div>
 
-            {% for _include in layout.panel_includes %}
-              {% assign _include_path = _include | append: '.html' %}
-              {% include {{ _include_path }} lang=lang %}
-            {% endfor %}
+            {% for _include in layout.panel_includes %} {% assign _include_path
+            = _include | append: '.html' %} {% include {{ _include_path }}
+            lang=lang %} {% endfor %}
           </aside>
         </div>
 
         <div class="row">
           <!-- tail -->
           <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
-            {% for _include in layout.tail_includes %}
-              {% assign _include_path = _include | append: '.html' %}
-              {% include {{ _include_path }} lang=lang %}
-            {% endfor %}
-
-            {% include_cached footer.html lang=lang %}
+            {% for _include in layout.tail_includes %} {% assign _include_path =
+            _include | append: '.html' %} {% include {{ _include_path }}
+            lang=lang %} {% endfor %} {% include_cached footer.html lang=lang %}
           </div>
         </div>
 
@@ -62,7 +66,11 @@ layout: compress
       </div>
 
       <aside aria-label="Scroll to Top">
-        <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow">
+        <button
+          id="back-to-top"
+          type="button"
+          class="btn btn-lg btn-box-shadow"
+        >
           <i class="fas fa-angle-up"></i>
         </button>
       </aside>
@@ -70,18 +78,73 @@ layout: compress
 
     <div id="mask"></div>
 
-    {% if site.pwa.enabled %}
-      {% include_cached notification.html lang=lang %}
+    {% if site.pwa.enabled %} {% include_cached notification.html lang=lang %}
     {% endif %}
 
     <!-- JavaScripts -->
 
-    {% include js-selector.html %}
+    {% include js-selector.html %} {% if page.mermaid %} {% include mermaid.html
+    %} {% endif %} {% include_cached search-loader.html %}
+    <!-- progressbar 스크립트 시작 -->
+    <script>
+      window.onload = function () {
+        updateProgressBar(); // 모든 리소스 로딩 완료 시 프로그레스 바 업데이트
+      };
 
-    {% if page.mermaid %}
-      {% include mermaid.html %}
-    {% endif %}
+      function updateProgressBar() {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.offsetHeight,
+          document.body.clientHeight,
+          document.documentElement.clientHeight
+        );
+        const winHeight = window.innerHeight;
+        const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+        document.getElementById("indicator").style.width = scrollPercent + "%";
+      }
 
-    {% include_cached search-loader.html %}
+      // 페이지 로딩 및 스크롤 이벤트 초기화
+      document.addEventListener("DOMContentLoaded", function () {
+        updateProgressBar(); // 초기 프로그레스 바 상태 설정
+
+        // 스크롤 이벤트에 대한 최적화 처리
+        let ticking = false;
+        window.addEventListener("scroll", function () {
+          if (!ticking) {
+            window.requestAnimationFrame(function () {
+              updateProgressBar();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+      });
+
+      // 동적 콘텐츠의 로딩 감지를 위한 MutationObserver 설정
+      function observeDynamicContent() {
+        const targetNode = document.querySelector(".utterances"); // 동적 콘텐츠 컨테이너 선택자
+
+        if (targetNode) {
+          const config = { childList: true, subtree: true };
+          const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+              if (mutation.addedNodes.length > 0) {
+                updateProgressBar(); // 동적 콘텐츠 로딩 시 프로그레스 바 업데이트
+              }
+            });
+          });
+
+          observer.observe(targetNode, config);
+        }
+      }
+
+      // DOM이 완전히 로드된 후 동적 콘텐츠 감지 시작
+      document.addEventListener("DOMContentLoaded", observeDynamicContent);
+    </script>
+    <!-- progressbar 스크립트 끝 -->
   </body>
 </html>
