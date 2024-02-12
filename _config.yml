@@ -44,7 +44,7 @@ social:
     - https://github.com/uujeong # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/yujeong-kim-25809a2b4/
 
 google_site_verification: PtYLG-MWKVRw7qjp5now7kUFLNa6ailqlhCKOsEacO8 # fill in to your verification string
 
@@ -65,7 +65,7 @@ google_analytics:
 #     light  - Use the light color scheme
 #     dark   - Use the dark color scheme
 #
-theme_mode: light # [light|dark]
+theme_mode: # [light|dark]
 
 # The CDN endpoint for images.
 # Notice that once it is assigned, the CDN url

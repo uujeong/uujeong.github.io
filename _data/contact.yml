@@ -1,7 +1,8 @@
 #  The contact options.
 
-- type: button
-  icon: "fas fa-adjust"
+# - type: button
+#   icon: "fas fa-adjust"
+
 - type: github
   icon: "fab fa-github"
 

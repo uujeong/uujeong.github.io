@@ -14,7 +14,8 @@ tail_includes:
 <article class="px-1">
   <header>
     <h1 data-toc-skip>{{ page.title }}</h1>
-
+    <!-- 제목 밑에 연한 선 추가 -->
+    <div class="line_under_h1"></div>
     <div class="post-meta text-muted">
       <!-- published date -->
       <span>
@@ -111,6 +112,8 @@ tail_includes:
       class="post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2"
     >
       <div class="license-wrapper">
+        이 블로그 포스팅의 저작권은 ⓒ 유정에게 있습니다.
+        <!--
         {% if site.data.locales[lang].copyright.license.template %} {% capture
         _replacement %}
         <a href="{{ site.data.locales[lang].copyright.license.link }}">
@@ -118,6 +121,7 @@ tail_includes:
         </a>
         {% endcapture %} {{ site.data.locales[lang].copyright.license.template |
         replace: ':LICENSE_NAME', _replacement }} {% endif %}
+        -->
       </div>
 
       {% include post-sharing.html lang=lang %}

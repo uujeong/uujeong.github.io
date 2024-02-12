@@ -55,8 +55,10 @@
 }
 
 %link-hover {
-  color: #d2603a !important;
-  border-bottom: 1px solid #d2603a;
+  // 링크에 대해 색상, border-bottom 더 진하게 변경했다.
+  //   color: #d2603a !important;
+  color: #ff4081 !important;
+  border-bottom: 1.5px solid #ff4081;
   text-decoration: none;
 }
 
