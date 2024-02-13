@@ -46,6 +46,10 @@ social:
     # - https://www.facebook.com/username
     - https://www.linkedin.com/in/yujeong-kim-25809a2b4/
 
+# 사이트맵
+plugins:
+  - jekyll-sitemap
+
 google_site_verification: google-site-verification=PtYLG-MWKVRw7qjp5now7kUFLNa6ailqlhCKOsEacO8 # fill in to your verification string
 
 # ↑ --------------------------
