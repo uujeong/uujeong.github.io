@@ -850,7 +850,7 @@ $btn-mb: 0.5rem;
       display: block;
     }
     a:hover {
-      color: rgba(150, 72, 199, 0.66);
+      color: --site-title-color-hover; /* 타이틀 hover 색상 */
     }
   }
 
@@ -864,6 +864,10 @@ $btn-mb: 0.5rem;
     -ms-user-select: none;
     user-select: none;
     text-align: center;
+
+    a:hover {
+      color: --site-subtitle-color-hover; /* 서브 타이틀 hover 색상 */
+    }
   }
 
   ul {
