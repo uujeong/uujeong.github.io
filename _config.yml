@@ -20,8 +20,7 @@ title: 데이터 이야기 # the main title
 tagline: 데이터 관련 다양한 주제에 대해 깊이 있는 분석과 리뷰를 제공합니다. # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  데이터 과학, 자연어 처리(NLP), 인공지능(AI), 빅 데이터 등 데이터 관련 분야의 최전선에서 이루어지는 혁신과 연구를 탐구합니다. 
-  이 블로그는 복잡한 데이터 세계의 핵심을 짚어내고, 최신 논문과 연구 결과를 분석하여 실용적인 인사이트와 지식을 제공하고자 합니다.
+  인공지능 데이터 관련 분야의 논문을 분석하고 리뷰합니다.
 
 # Fill in the protocol & hostname for your site.
 # e.g. 'https://username.github.io', note that it does not end with a '/'.
