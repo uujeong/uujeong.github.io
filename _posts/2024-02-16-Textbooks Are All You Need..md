@@ -5,9 +5,9 @@ description:
 date: 2024-02-16 14:00:00 +09:00
 categories: [글쓰기]
 tags: [LLM, 데이터 품질]
-image: # preview img (해상도가 1200 x 630인 이미지)
-  path: /path/to/image
-  alt: image alternative text
+# image: # preview img (해상도가 1200 x 630인 이미지)
+#   path: /path/to/image
+#   alt: image alternative text
 pin: true # 게시글 고정
 ---
 
