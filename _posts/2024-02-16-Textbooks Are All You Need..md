@@ -27,6 +27,7 @@ tip, info, warning, danger
 > {: .prompt-info }
 
 Once the position is specified, the image caption should not be added.
+.
 
 > {: .prompt-warning }
 
