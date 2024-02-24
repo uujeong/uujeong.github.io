@@ -14,20 +14,19 @@ tags: [fastai, 딥러닝, 이미지 분류]
 >
 > ---
 
-## 0\. FastAI란 무엇인가?
+## 0. FastAI란 무엇인가?
 
 [##_Image|kage@EFCwV/btsBgyNm8VX/9sovhKcNHz1WDlk9av72Wk/img.png|CDM|1.3|{"originWidth":425,"originHeight":234,"style":"alignCenter","width":341,"height":188,"caption":"fast.ai는 딥 러닝 및 인공 지능에 중점을 둔 비영리 연구 그룹이다. 2016년 Jeremy Howard와 Rachel Thomas가 딥 러닝 민주화를 목표로 설립했다.","filename":"blob"}_##]
 
-FastAI는 딥러닝을 위한 **고수준 API**를 제공하는 Python 라이브러리이다. **PyTorch**를 기반으로 하며, 딥러닝 모델을 더 쉽고 빠르게 구현할 수 있도록 설계되었다. **FastAI는 초보자도 쉽게 사용할 수 있는 직관적인 API**를 제공한다. 복잡한 모델도 몇 줄의 코드로 구현할 수 있다. Pytorch를 기반으로 만들었다 말했듯이, PyTorch의 모든 기능을 활용할 수 있다. 복잡한 딥러닝 모델을 빠르게 프로토타이핑하고 실험할 수 있게 도와주기 때문에 딥러닝 입문자에게 매우 편리하다. 다양한 데이터셋과 모델에 대한 사전 훈련된 가중치를 제공하기 때문에 빠른 시작을 가능하게 한다.
+FastAI는 딥러닝을 위한 `고수준 API`를 제공하는 Python 라이브러리이다. **PyTorch**를 기반으로 하며, 딥러닝 모델을 더 쉽고 빠르게 구현할 수 있도록 설계되었다. **FastAI는 초보자도 쉽게 사용할 수 있는 직관적인 API**를 제공한다. 복잡한 모델도 몇 줄의 코드로 구현할 수 있다. Pytorch를 기반으로 만들었다 말했듯이, PyTorch의 모든 기능을 활용할 수 있다. 복잡한 딥러닝 모델을 빠르게 프로토타이핑하고 실험할 수 있게 도와주기 때문에 딥러닝 입문자에게 매우 편리하다. 다양한 데이터셋과 모델에 대한 사전 훈련된 가중치를 제공하기 때문에 빠른 시작을 가능하게 한다.
 
 > 딥러닝을 위한 고수준 API를 제공하는 다른 라이브러리와는 어떤 점이 다를까?
 >
 > Keras는 주로 backend에서 TensorFlow를 사용하는 반면,  
-> **fastai**와 PyTorch Lightning은 Pytorch를 기반으로 구축되었다.  
->
+> **fastai**와 PyTorch Lightning은 Pytorch를 기반으로 구축되었다.
 
 > 이 게시글은 fastai 공식문서([https://docs.fast.ai/](https://docs.fast.ai/))를 주로 참고하였으며,  
-> 딥러닝 모델에 대한 부분은 Pytorch 공식문서([https://pytorch.org/vision/main/models.html#using-models-from-hub](https://pytorch.org/vision/main/models.html#using-models-from-hub))를 참고하여 작성하였다.
+> 딥러닝 모델에 대한 부분은 Pytorch 공식문서([https://pytorch.org/vision/main/models.html#using-models-from-hub](https://pytorch.org/vision/main/models.html#using-models-from-hub))를 참고하여 작성하였다.
 
 [fastai - Welcome to fastai
 
@@ -43,7 +42,7 @@ pytorch.org](https://pytorch.org/vision/main/models.html#using-models-from-hub)
 
 ---
 
-## **1\. 모델 생성 계기**
+## 1. 모델 생성 계기
 
 _밥을 먹다가 문득, 내 식탁에는 '김치'가 빠지지 않을정도로 김치를 즐겨 먹는 것 같다는 생각이 들었다. 좋아하는 음식을 '김치'라고 말할일은 없을 것 같지만, 반찬 중 김치가 없으면 허전할 것 같은 마음이 들었다. 다양한 김치가 있지만, 나는 보통 '배추김치'와 '오이소박이'를 자주 먹는다. 그렇다면 다른 김치반찬이 있다면 내가 구분할 수 있을까? 하는 재미있는 생각이 들었다. (내가 만든 모델보다 Score가 더 낮으면 어쩌지...?)_
 
@@ -53,15 +52,9 @@ _그래서, 실행에 옮겨보았다. **김치 사진을 찍으면 이게 어�
 
 ---
 
-## **2\. 데이터 수집**
+## 2. 데이터 수집
 
 [https://www.aihub.or.kr/](https://www.aihub.or.kr/ "AI 허브")
-
-[AI-Hub
-
-\[영상이미지\] 음식 이미지 및 영양정보 텍스트 #음식종류 # 음식 양 # 칼로리 # 한식 # 이미지 조회수 24,665 관심등록 103 다운수 5,339
-
-www.aihub.or.kr](https://www.aihub.or.kr/)
 
 [##_Image|kage@k3rY6/btsBfK7NEBa/dt98kRVhDC0YLkOGM7T2VK/img.png|CDM|1.3|{"originWidth":2494,"originHeight":918,"style":"alignCenter","link":"https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&amp;topMenu=&amp;aihubDataSe=data&amp;dataSetSn=79","isLinkNewWindow":true,"title":"AI 허브 내 &amp;#39;한국 이미지(음식)&amp;#39; 데이터를 다운받은 사이트","caption":"\bAI HUB에 있는 '한국 이미지(음식)'의 다양한 음식 이미지 중, '김치' 사진에 대한 데이터를 얻었다. 이미지를 클릭하면 해당 사이트로 이동한다."}_##]
 
@@ -141,7 +134,7 @@ www.aihub.or.kr](https://www.aihub.or.kr/)
 
 ---
 
-## **3\. 개념적으로 어떤 모델을 만들지 설계해보자!**
+## 3. 개념적으로 어떤 모델을 만들지 설계해보자!
 
 [##_Image|kage@dvnEn6/btsBgyOzUqi/DKLnARqpkQ7f8I0AQtjMmk/img.png|CDM|1.3|{"originWidth":872,"originHeight":774,"style":"alignCenter","width":263,"height":233}_##]
 
@@ -157,20 +150,20 @@ www.aihub.or.kr](https://www.aihub.or.kr/)
 
 ---
 
-## 4\. 코드 소개
+## 4. 코드 소개
 
-### 4 - 1) 필요한 라이브러리 설치
+### 4-1) 필요한 라이브러리 설치
 
 개발 환경은 Google Colab에서 진행했다.
 
 fastai 라이브러리가 설치되어있지 않기에, 코드 환경에 fastai 라이브러리를 설치했다.
 
-```
+```bash
 # fastai 라이브러리를 설치한다.
 ! pip install fastai
 ```
 
-```
+```python
 # vision(이미지) 데이터를 다룰 예정 -> 관련 library를 모두 import 해준다.
 from fastai.vision.all import *
 
@@ -191,11 +184,11 @@ PROJECT_DIR = "/content/drive/MyDrive/프로젝트파일위치"
 
 ---
 
-### 4 - 2) 데이터를 입력하기 위한 사전 작업
+### 4-2) 데이터를 입력하기 위한 사전 작업
 
 김치의 종류를 확인하기 위해, 폴더 이름을 확인하는 코드를 작성한다.
 
-```
+```python
 os.listdir(PROJECT_DIR)  # 김치 종류 폴더 이름
 ```
 
@@ -203,7 +196,7 @@ os.listdir(PROJECT_DIR)  # 김치 종류 폴더 이름
 
 김치 종류가 11가지라는 것을 코드로 확인할 수 있다.
 
-```
+```python
 # get_image_files()를 활용해 path안에 담긴 파일 위치의 image path를 모은다.
 fnames = get_image_files(PROJECT_DIR)
 ```
@@ -214,7 +207,7 @@ fnames = get_image_files(PROJECT_DIR)
 
 **이미지 파일 경로에서 폴더 directory 이름을 구해 이름을 슬라이싱해서 정답 라벨링을 구해야한다.**
 
-```
+```python
 fnames[4000].parts  # 라벨 정답 정보를 얻기 위해 경로 분석하기
 
 # 결과
@@ -227,7 +220,7 @@ fnames[4000].parts  # 라벨 정답 정보를 얻기 위해 경로 분석하기
 
 그렇다면, 경로의 \[-2\]인덱스를 각 파일의 경로에 있는 이미지를 불러와 mapping 하는 작업이 필요하다.
 
-```
+```python
 # 라벨링 정보를 불러오는 함수를 정의한다.
 def label_func(fname):
     return str(fname.parts[-2])
@@ -263,7 +256,7 @@ _**데이터 전처리, 데이터셋 구성, 배치 처리 및 데이터 증강(
 
 _**효율적인 데이터 로딩 및 학습 과정을 가능하게 한다.**_
 
-```
+```python
 # 데이터 블록 생성
 datablock = DataBlock(blocks=(ImageBlock, CategoryBlock),
                         get_items=get_image_files,
@@ -319,7 +312,7 @@ dls.show_batch(max_n=9)
 >
 > \_
 
-```
+```python
 # 카테고리 라벨 종류 확인하기
 dls.vocab
 ```
@@ -330,7 +323,7 @@ dls.vocab
 
 ### 4 - 4) 이미지 분류 모델 생성
 
-```
+```python
 learn = vision_learner(dls, resnet18, metrics=[accuracy, error_rate, Recall(average='macro'), Precision(average='macro')])
 ```
 
@@ -350,7 +343,7 @@ pytorch.org](https://pytorch.org/vision/main/models.html#using-models-from-hub)
 
 모델을 내 데이터에 맞게 변형하고 학습하기 전에, **적절한 학습률(learning rate)을 찾는 메서드**를 사용해보겠다.
 
-```
+```python
 # 적절한 학습률을 찾기 위해 사용, 이 메서드는 다양한 학습률에서 손실을 계산하여 가장 좋은 학습률을 추천한다.
 learn.lr_find()
 ```
@@ -363,13 +356,13 @@ learn.lr_find()
 
 - _fine_tune()에 적용할 때 learning_rate의 하이퍼파라미터 변수 명 예시_
 
-```
+```python
 learn.fine_tune(freeze_epochs = 1, epochs=3, base_lr=1e-4)
 ```
 
 - _fit_one_cycle()에 적용할 때 learning_rate의 하이퍼파라미터 변수 명 예시_
 
-```
+```python
 learn.fit_one_cycle(1, lr_max=1e-4)
 ```
 
@@ -379,7 +372,7 @@ learn.fit_one_cycle(1, lr_max=1e-4)
 
 fastai는 PyTorch를 기반으로 만들어졌기 때문에, 밑에 코드는 PyTorch 문법을 따른다.
 
-```
+```python
 # 모델 구조 확인하기
 learn.model
 ```
@@ -695,8 +688,7 @@ Sequential(
 
 > **freeze_epochs와 epochs가 뭐지? 왜 굳이 나눈거지?**
 >
-> **freeze_epochs 단계**에서는 모델의 FC 레이어를 학습하고 Convolutional 레이어는 고정된다. 이렇게 함으로써, **모델의 초기 미세 조정은 주로 데이터와 관련된 특별한 패턴 및 클래스를 파악하는데 집중한다.** Convolutional 레이어는 이미지의 특징을 추출하는 역할을 하며, 이러한 특징은 대부분의 이미지 분류 작업에서 유용하게 유지된다.  
->
+> **freeze_epochs 단계**에서는 모델의 FC 레이어를 학습하고 Convolutional 레이어는 고정된다. 이렇게 함으로써, **모델의 초기 미세 조정은 주로 데이터와 관련된 특별한 패턴 및 클래스를 파악하는데 집중한다.** Convolutional 레이어는 이미지의 특징을 추출하는 역할을 하며, 이러한 특징은 대부분의 이미지 분류 작업에서 유용하게 유지된다.
 
 **epochs 단계**에서는 모델의 모든 레이어를 함께 학습한다. 이 단계에서는 **모델이 전체 구조를 새로운 작업에 맞게 미세 조정하고 더 많은 데이터로 성능을 향상시킨다.** 이 단계에서는 초기 미세 조정에서 학습된 FC 레이어와 함께 Convolutional 레이어도 조금씩 조정된다. **모델은 이전에 파악한 데이터 관련 패턴을 보완하고 미세 조정을 통해 새로운 작업에 더 적합하게 맞추려고 노력한다.**
 
@@ -709,8 +701,7 @@ Sequential(
 >
 > 여기서 fastai의 편리함을 느낄 수 있다.  
 > **단지 몇줄의 직관적인 고수준 API만으로 모델을 만들고, 파인튜닝까지 할 수 있다!**  
-> 모델의 구조를 파악하고 한줄한줄 수정하고 이해할 필요가 없다.  
->
+> 모델의 구조를 파악하고 한줄한줄 수정하고 이해할 필요가 없다.
 
 ---
 
