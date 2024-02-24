@@ -45,7 +45,7 @@ _그래서, 실행에 옮겨보았다. **김치 사진을 찍으면 이게 어�
 ## 2. 데이터 수집
 
 [https://www.aihub.or.kr/](https://www.aihub.or.kr/ "AI 허브")
-<img width="752" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/db359651-21c6-4938-a9ab-52129479cedd">
+<img width="870" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/aa5f3984-f6b1-4f82-b17d-a8db8a6ca243">
 
 다행히, **AI 허브**에 '김치'데이터가 있었다. **AI 허브**는 모델 구축을 위한 데이터를 대량으로 얻을 수 있는 사이트이다.
 
