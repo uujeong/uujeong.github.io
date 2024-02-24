@@ -719,3 +719,5 @@ learn = load_learner('identifying_Kimchi_model.pkl')
 오히려 데이터를 증강하고, 더 무거운 모델을 사용할수록 성능이 더 떨어졌다.
 
 <img width="707" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/28c286e5-0762-45df-be53-a59e8208e0e3">
+
+전체 코드로 확인하고 싶으시다면, [깃허브 링크](https://github.com/uujeong/Fastai_classification_kimchi)를 `click`해주세요.
