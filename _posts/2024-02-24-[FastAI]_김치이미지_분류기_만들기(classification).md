@@ -5,13 +5,17 @@ description:
 date: 2024-02-24 21:00:00 +09:00
 categories: [딥러닝, CV]
 tags: [fastai, 딥러닝, 이미지 분류]
+pin: true # 게시글 고정
 ---
 
-> **fastai를 활용해 이미지를 활용해 분류 문제를 해결하는 모델을 만든다.**
+{: .prompt-info }
+
+> `fastai`를 활용해 이미지를 활용해 분류 문제를 해결하는 모델을 만든다.
+
+{: .prompt-info }
 
 > fastai 튜토리얼을 간략하지만 자세하게 설명하고, 최적화를 위한 실험을 진행한다.  
-> 특히, fine_tune과 내가 epoch를 조절하는 기준에 대해 자세히 설명할 예정이다.
-> {: .prompt-info }
+> 특히, `fine_tune`과 내가 `epoch`를 조절하는 기준에 대해 자세히 설명할 예정이다.
 
 ## 0. FastAI란 무엇인가?
 
@@ -258,19 +262,19 @@ dls.show_batch(max_n=9)
 
 <img width="748" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/5820bf95-2be1-4478-a568-493499c61c26">
 
-> **blocks = (ImageBlock, CategoryBlock**) : 이미지를 다루고, '분류'문제이기에 명시해둔다.
+> `blocks = (ImageBlock, CategoryBlock)` : 이미지를 다루고, '분류'문제이기에 명시해둔다.
 > ImageBlock 은 입력 데이터(이미지)를 나타내고, CategoryBlock 은 타겟 데이터(레이블)를 나타낸다.
 >
-> **get_items &** **get_y** : _데이터셋에서 아이템을 어떻게 가져올지 정의한다._  
+> `get_items & get_y` : 데이터셋에서 <ins>아이템을 어떻게 가져올지 정의한다.</ins>  
 > 예를 들어, get_image_files 함수는 디렉토리에서 모든 이미지 파일을 가져오는 데 사용된다.
 >
-> **splitter** : 데이터를 훈련 세트와 검증 세트로 어떻게 나눌지 정의한다. RandomSplitter 는 데이터를 무작위로 분할한다.
+> `splitter` : 데이터를 훈련 세트와 검증 세트로 어떻게 나눌지 정의한다. RandomSplitter 는 데이터를 무작위로 분할한다.
 >
-> **item_tfms** : 각 아이템에 개별적으로 적용되는 변환을 정의한다. (이미지 크기 조정, 데이터 증강 등)
+> `item_tfms` : 각 아이템에 개별적으로 적용되는 변환을 정의한다. <ins>(이미지 크기 조정, 데이터 증강 등)</ins>
 >
-> **batch_tfms** : 배치 단위로 적용되는 데이터 변환을 정의한다. (이미지 크기 조정, 데이터 증강 등)
+> `batch_tfms` : 배치 단위로 적용되는 데이터 변환을 정의한다. <ins>(이미지 크기 조정, 데이터 증강 등)</ins>
 >
-> **Normalize.from_stats(\*imagenet_stats)** : _데이터 정규화_  
+> `Normalize.from_stats(\*imagenet_stats)` : <ins>데이터 정규화</ins>  
 > _정규화 과정은 모델이 다양한 이미지 데이터에 대해 더 잘 일반화하고, 학습 과정에서 더 빠르고 안정적으로 수렴하도록 돕는다._
 
 <img width="727" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/437c8656-7b3c-4d72-8c29-f182edbb46f1">
@@ -431,8 +435,9 @@ Sequential(
 )
 ```
 
+{: .prompt-tip }
+
 > 전체를 완전히 이해하고 활용할 필요는 없으며, 각 레이어의 역할과 순서 등을 읽고 이해하는 수준으로 넘어가면 된다.
-> {: .prompt-tip }
 
 ---
 
@@ -720,4 +725,6 @@ learn = load_learner('identifying_Kimchi_model.pkl')
 
 <img width="707" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/28c286e5-0762-45df-be53-a59e8208e0e3">
 
-전체 코드로 확인하고 싶으시다면, [깃허브 링크](https://github.com/uujeong/Fastai_classification_kimchi)를 `click`해주세요.
+{: .prompt-tip }
+
+> 전체 코드로 확인하고 싶으시다면, [깃허브 링크](https://github.com/uujeong/Fastai_classification_kimchi)를 `click`해주세요.

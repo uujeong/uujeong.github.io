@@ -8,7 +8,7 @@ tags: [LLM, 데이터 품질]
 # image: # preview img (해상도가 1200 x 630인 이미지)
 #   path: /path/to/image
 #   alt: image alternative text
-pin: true # 게시글 고정
+# pin: true # 게시글 고정
 ---
 
 논문 원문은 다음과 같다.
