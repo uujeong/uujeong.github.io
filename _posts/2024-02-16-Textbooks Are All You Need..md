@@ -23,5 +23,5 @@ tip, info, warning, danger
 
 - [ ] Job
   - [x] Step 1
-  - [x] Step 2
+  - [x] Step 2..
   - [ ] Step 3
