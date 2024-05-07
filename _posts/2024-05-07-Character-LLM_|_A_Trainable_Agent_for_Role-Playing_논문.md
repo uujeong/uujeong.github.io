@@ -96,7 +96,7 @@ LLM이 미리 정의된 캐릭터의 정신적 활동과 신체적 행동을 모
 
 #### 3.1.1 Profile Collection
 
-<img width="923" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/9cf7b26a-02cb-4e09-800c-f0d0a2f11dc3">
+![image](https://github.com/uujeong/uujeong.github.io/assets/86465999/9cf7b26a-02cb-4e09-800c-f0d0a2f11dc3){: .shadow .rounded-10 .w-95}
 
 {: .prompt-info}
 
@@ -145,13 +145,18 @@ LLaMA 7B 모델을 기반으로 각 시뮬라크럼을 해당 경험 예시에 �
 
 평가는 인터뷰 방식으로 진행했다.
 
+### 4.4 LLM as Judges
+
+![image](https://github.com/uujeong/uujeong.github.io/assets/86465999/b6c18870-8e3a-46b1-a375-54f097dd7b22){: .shadow .rounded-10 .w-95}
+![image](https://github.com/uujeong/uujeong.github.io/assets/86465999/57374a98-2fe7-436e-aa3b-006933ed46df){: .shadow .rounded-10 .w-95}
+
 ## 5 Conclusion and Future
 
 {: .prompt-info}
 
 > 결론 : 이 논문에서는 특정 인물을 모방하는데 있어 기존의 프롬프트 기반 에이전트보다 효과적인 훈련 가능한 에이전트, 즉 Character-LLM을 구축하는 방법을 제시했다.
 
-## Limitations
+## 6. Limitations
 
 1. Evaluation Protocols : Agent를 평가하기 어렵다. (캐릭터에 대한 깊은 이해 필요 + 인간 평가를 진행하기 어려움)
 2. Limited data : 캐릭터 프로필을 기반으로 한 장면을 서술, 하지만 실제 인물의 전체 생애나 실제의 한 측면을 충분히 대표X
