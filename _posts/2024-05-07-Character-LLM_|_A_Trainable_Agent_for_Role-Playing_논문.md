@@ -27,6 +27,6 @@ tip, info, warning, danger
   - [x] Step 2..
   - [ ] Step 3
 
-# 0. Abstract
+## 0. Abstract
 
 이 논문의 초록(abstract)은 인간 행동을 모방할 수 있는 LLMs의 능력을 활용하여 단순한 행동 이상의 형태로 특정 인물을 시뮬레이션하는 새로운 접근 방식을 제안한다.
