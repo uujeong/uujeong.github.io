@@ -67,7 +67,7 @@ _이해를 돕기 위해 다음과 같이 논문 내 용어를 정의하겠다._
 
 ### 2.2 Specialization of LLMs
 
-이 연구 Section에서는 LLMs을 인간 행동을 시뮬레이션하는데 사용 하는 것을 소개한다. LLMs의 특화는 LLM개발 중 하나로, LLMs를 character simulacra에 특화시키려고 하고 있기 때문에 LLMs가 어떻게 특화되는지 연구하는게 중요하다고 설명한다.
+LLMs을 인간 행동을 시뮬레이션하는데 사용 하는 것을 소개한다. LLMs의 특화는 LLM개발 중 하나로, LLMs를 character simulacra에 특화시키려고 하고 있기 때문에 LLMs가 어떻게 특화되는지 연구하는게 중요하다고 설명한다.
 
 여기서 소개하는 연구방법론은 모두 Fine-tuning, RLHF, self-instruction tuning을 사용하여 LLMs를 특화시키는 것을 목표로 한다.
 
