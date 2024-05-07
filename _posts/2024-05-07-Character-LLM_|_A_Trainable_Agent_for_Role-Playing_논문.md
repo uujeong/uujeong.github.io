@@ -11,7 +11,7 @@ tags: [LLM, 화법변환]
 # pin: true # 게시글 고정
 ---
 
-역할별 화법 변환을 구현하기 위해 관련 논문을 공부하고자 한다. 이 논문의 원문은 다음과 같다.
+동화 혹은 소설 속 등장인물의 역할별 화법 변환을 구현하기 위해 관련 논문을 공부하고자 한다. 이 논문의 원문은 다음과 같다.
 <https://arxiv.org/pdf/2310.10158>
 
 ![image](https://github.com/uujeong/toDoList_react/assets/86465999/709a5996-1b00-418f-be00-4d459f6a48bd){: .shadow .rounded-10 .w-75}
@@ -21,23 +21,20 @@ tags: [LLM, 화법변환]
 _이해를 돕기 위해 다음과 같이 논문 내 용어를 정의하겠다._
 
 - [ ] simulacra : 모방체
+- [x] LLM : Large Language Model
+- [ ] Character-LLM : 특정 인물을 시뮬레이션하는 훈련 가능한 Agent
 
-_Character-LLM: A Trainable Agent for Role-Playing_
-
-tip, info, warning, danger
+<!-- tip, info, warning, danger -->
 
 {: .nolineno }
 
-- [ ] Job
-  - [x] Step 1
-  - [x] Step 2..
-  - [ ] Step 3
-
 ## 0. Abstract
 
-이 논문의 초록(abstract)은 인간 행동을 모방할 수 있는 LLMs의 능력을 활용하여 단순한 행동 이상의 형태로 특정 인물을 시뮬레이션하는 새로운 접근 방식을 제안한다.
+인간 행동을 모방할 수 있는 LLMs의 능력을 활용하여 단순한 행동 이상의 형태로 특정 인물을 시뮬레이션하는 새로운 접근 방식을 제안한다.
 
-목표 : aim to train an agent with the profile, experience, and emotional states of a specific person instead of using limited prompts to instruct ChatGPT API.
+{: .prompt-tip}
+
+> 목표 : aim to train an agent with the profile, experience, and emotional states of a specific person instead of using limited prompts to instruct ChatGPT API.
 
 ## 1. Introduction
 
@@ -45,8 +42,6 @@ tip, info, warning, danger
  특히, ChatGPT와 GPT-4와 같은 모델들이 어떻게 사람들의 일상 활동을 모방하는 데 사용될 수 있는지에 대해 설명한다. 이 모델들은 자세히 구성된 prompt를 사용하는데, 이를 통해 사회에서 특정 역할을 하는 평범한 사람들처럼 행동할 수 있도록 한다는 의미이다.
 
 사람들의 경험, 특성, 감성을 학습하여 Beethoven, Queen Cleopatra, Julius Caesar 와 같은 유명 인물들을 Role play 할 수 있는 **<mark>훈련 가능한 Agent</mark>**를 만드는 것을 목표로 한다.
-
-![image](https://github.com/uujeong/uujeong.github.io/assets/86465999/0a1d9b38-bbe3-4a79-9749-b1d938cf9444){: .shadow .rounded-10 .w-75}
 
 {: .prompt-info }
 
@@ -77,3 +72,54 @@ tip, info, warning, danger
 여기서 소개하는 연구방법론은 모두 Fine-tuning, RLHF, self-instruction tuning을 사용하여 LLMs를 특화시키는 것을 목표로 한다.
 
 ## 3. Approach
+
+![image](https://github.com/uujeong/uujeong.github.io/assets/86465999/0a1d9b38-bbe3-4a79-9749-b1d938cf9444){: .shadow .rounded-10 .w-95}
+
+스타일과 어조를 모방하는데 있던 지도 미세 조정(SFT)이나 자연어와 유사한 손으로 만든 규칙과 설명을 제공하는 방식(이전방식)과는 다르게, 사람들이 과거 경험과 사건에 기반하여 다양한 성격을 키우는 방식에서 영감을 받았다.
+
+{: .prompt-info}
+
+> Experience Upload
+
+LLM이 미리 정의된 캐릭터의 정신적 활동과 신체적 행동을 모방하고, 재구성된 경험으로부터 학습하여 그들처럼 행동할 수 있는 능력을 습득하는 혁신적인 학습 프레임워크이다.
+
+그림을 보면 논문의 접근 방식이 더 직관적으로 와닿는데, 특정 character의 `profile collection`에서 과거 경험을 설명하는 특정 화상 장면을 유발한다. 이는 환각(hallucination)을 효과적으로 완화하고 데이터 수렴의 부족을 해결한다. (-> 당연한 이야기)
+이 재구성된 장면들로부터 학습함으로써, 우리는 LLMs를 높은 신뢰도를 갖는 여러 캐릭터 에이전트로 특화시킨다.
+
+### 3.1 Building Experience Dataset
+
+이 부분에서는 특정 인물의 경험을 대형 언어 모델(LLM)을 사용하여 재구성하고자 하는 목표에 대해 설명한다. 인간의 경험은 매우 복잡하며, 중요한 이정표와 하찮은 사건들이 뒤섞여 있고, 긴 시간에 걸쳐 있다. 제한된 context와 언어 모델의 본질적인 오류로 인해 일관되고 통합된 경험을 다시 만드는 작업은 어려운 일이다. 따라서, 사실 기반의 경험 재구성 pipeline을 제안한다고 한다. (경험을 재창조하는 것을 포함)
+
+1. 프로필: 캐릭터의 속성에 대한 간결한 설명(전반 정보, 중요한 사건 정보, 초기 어린 시절 등..)
+2. 장면: 캐릭터의 상호작용이 펼쳐지는 특정 장소. (시간적, 공간적 context 포함)
+3. 상호작용: 캐릭터의 인지 과정, 발화 또는 행동. (represented in plain text)
+
+#### 3.1.1 Profile Collection
+
+<img width="923" alt="image" src="https://github.com/uujeong/uujeong.github.io/assets/86465999/9cf7b26a-02cb-4e09-800c-f0d0a2f11dc3">
+
+{: .prompt-info}
+
+> comprehensive character profile을 collect하는 과정
+
+#### 3.1.2 Scene Extraction
+
+특정 생애 시기에 character의 experience description을 간결하게 설명하는 프로필 + LLM에게 이 경험 설명을 바탕으로 발생했을 법한 여러 다른 장면을 나열하도록 요청한다. (대략적인 위치와 간단한 배경 일러스트레이션을 포함)
+{: .prompt-info}
+
+> -> 물론 간단하게 출력하는건 LLM의 비용 절감을 위한 것!
+
+#### 3.1.3 Experience Completion
+
+추출된 장면은 개인 간의 상세한 상호작용 경험으로 확장됩니다. 특정 장면 설명과 해당 프로필 조각이 주어진 상태에서, LLM은 캐릭터들 간의 상호작용과 표적 개인의 생각을 포함시키며 장면을 자세히 설명하도록 유도됩니다. 이 상호작용은 시나리오 형식으로 작성되며, 배경 정보와 지리적 세부 사항을 제공하는 장면 머리말로 시작됩니다. 그 다음 각 블록이 특정 캐릭터의 발언이나 표적 개인의 성찰을 나타내는 일련의 블록으로 표현됩니다. 중요한 점은, 이 장면이 표적 개인의 관점을 바탕으로 완성된다는 것입니다. 따라서, 모든 캐릭터의 반영이 아닌 표적 개인의 성찰만이 포함됩니다.
+
+이 과정을 통해 캐릭터의 경험을 보다 실감나고 자세히 재현할 수 있으며, 특히 개인의 관점에서 그들의 생각과 상호작용을 중심으로 장면을 구성함으로써, 보다 깊이 있는 캐릭터 이해와 시뮬레이션을 가능하게 합니다.
+
+### 3.2 Protective Experience
+
+캐릭터가 본연의 정체성과 모순되는 지식에 대해 질문받을 때 무지와 혼란을 표현하도록 하는 protective experience를 구축하는 방법을 다룬다. 이를 위해 모델을 훈련시켜 캐릭터의 시대나 정체성에 부합하지 않는 지식에 대해서는 대답하지 않고 지식 부족을 표현하게 하는데, 이러한 보호 장면은 캐릭터의 정체성을 보호하면서 동시에 캐릭터와 모순되는 지식을 잊도록 돕는다.
+->
+
+### 3.3 Experience Upload
+
+이 섹션에서는 특정 캐릭터의 경험 데이터만을 사용하여 각 역할에 맞게 LLM 기반 모델을 미세 조정하는 과정을 설명합니다. 예를 들어, LLaMA 모델을 캐릭터별로 특화하여 각각의 캐릭터에 대한 에이전트 모델을 별도로 미세 조정합니다. 이렇게 각 캐릭터에 맞춤형 데이터를 사용함으로써, 캐릭터 간 지식 충돌을 제거하고 역할 연기의 정확성을 향상시키는 것이 목표입니다.
